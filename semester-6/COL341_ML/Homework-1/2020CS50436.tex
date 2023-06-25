@@ -1,0 +1,345 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{COL341 - HOMEWORK-1}
+\author{Rajat Bhardwaj}
+\date{February 2023}
+
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath,amssymb}
+\newcommand{\gxn}[0]{x_n^T(X^TX)^{-1}X^T\epsilon}
+\DeclareMathOperator{\E}{\mathbb{E}}
+
+
+\begin{document}
+
+\maketitle
+
+\section{Question 1}
+\subsection{A. To prove that H is symmetric }
+$$H = X(X^TX)^{-1}X^T$$
+We have to prove that $H^T  = H$\\
+Taking transpose\\
+$$H^T =(X(X^TX)^{-1}X^T)^T $$\\
+Now we know that $(ABC)^T = C^TB^TA^T$\\
+Thus,\\
+$$H^T = (X^T)^T((X^TX)^{-1})^TX^T$$\\
+Now we know that $(A^T)^T = A$ and $(A^{-1})^T =(A^T)^{-1}$\\
+Therefore,\\
+$$H^T = X((X^TX)^{T})^{-1}X^T$$
+$$H^T = X((X^TX))^{-1}X^T$$
+$$H^T = H$$
+Which means H is symmetric
+\subsection{B. To show that $H^k = H$ for $k > 0$ }
+$$H = X(X^TX)^{-1}X^T$$
+Let us find $H^2$
+$$H^2 = (X(X^TX)^{-1}X^T)^2$$
+$$H^2 = (X(X^TX)^{-1}X^T)(X(X^TX)^{-1}X^T)$$
+$$H^2 = (X(X^TX)^{-1}(X^TX)(X^TX)^{-1}X^T)$$
+Cancelling out $(X^TX)^{-1}$ and $(X^TX)$
+we get 
+
+$$H^2 = X(X^TX)^{-1}X^T$$
+
+Thus 
+
+$$H^2 = H$$
+
+Now 
+$$H^3 = H^2H = HH = H^2 = H$$
+
+Basically, for k > 1
+
+$$H^K = H^2H^{k-2} $$
+$$H^K = HH^{k-2} $$
+$$H^K = H^2H^{k-3} $$
+and so on till
+$$H^K = H^2H^{k-k} $$
+$$H^K = H^2$$
+$$H^K = H$$
+\subsection{C. To show that $(I-H)^K = I-H$ for any positive k where I is identity matrix}
+Let us find 
+$$(I-H)^2 = (I^2 + H^2 - IH - HI)$$
+We know that $IA = AI = A$ and $I^2 = I$ where I is identity matrix
+Therefore we get 
+$$(I-H)^2 = I + H^2 - 2H$$
+1.b we showed that $H^k = H$ for $k>0$
+Therefore
+$$(I-H)^2 = I + H - 2H$$
+$$(I-H)^2 = I - H$$
+We get 
+$$(I-H)^3 = (I-H)^2(I-H) = (I-H)(I-H) = (I-H)^2 =(I-H)$$
+Hence we get 
+$$(I-H)^k = (I-H)^2(I-H)^{k-2}$$
+$$(I-H)^k = (I-H)(I-H)^{k-2}$$
+$$(I-H)^k = (I-H)^2(I-H)^{k-3}$$
+$$(I-H)^k = (I-H)(I-H)^{k-3}$$
+and so on till
+$$(I-H)^k = (I-H)(I-H)^{k-k}$$
+Thus we get 
+$$(I-H)^k = I-H$$
+
+
+\subsection{D. To show that $trace(H) = d+1$}
+$$trace(H) = trace(X(X^TX)^{-1}X^T)$$
+We know that $trace(AB) = trace(BA)$
+$$trace(H) = trace(XX^T(X^TX)^{-1})$$
+$$trace(H) = trace((XX^T)(X^TX)^{-1})$$
+$$trace(H) = trace(X^TX(X^TX)^{-1})$$
+cancelling out $(X^TX)$ and $(X^TX)^{-1}$. Also X has dimensions $N\times(d+1)$. Therefore, $X^TX$ with be multiplying matrix of dimension $(d+1) \times N$ with matrix $N times (d+1)$ resulting in the matrix with dimensions $(d+1)$
+we get 
+
+$$trace(H) = trace(I_{d+1})$$
+Hence proved
+\section{Question 2. Prove that $\E[E_{in}(\textbf{w}_{in})] = \sigma^2(1-\frac{d+1}{N})$}
+\subsection{ A. Show that $\hat{y} = Xw^* +H\epsilon$}
+$$\hat{y}=Xw_{lin}$$ 
+We know that $w_{lin}=(X^{T}X)^{-1}X^Ty$
+Therefore
+$$\hat{y}=X(X^{T}X)^{-1}X^Ty$$
+$$\hat{y}=Hy$$
+where $H=X(X^{T}X)^{-1}X^T$\\
+also,
+$$y = Xw^*+\epsilon$$
+Therefore
+
+$$\hat{y}=H(Xw^*+\epsilon)$$
+$$\hat{y}=HXw^*+H\epsilon$$
+Now
+$$H = X(X^TX)^{-1}X^T$$
+We get
+$$\hat{y}=X(X^TX)^{-1}X^TXw^*+H\epsilon$$
+$$\hat{y}=X(X^TX)^{-1}(X^TX)w^*+H\epsilon$$
+Cancelling out $(X^TX)^{-1}$ and $(X^TX)$
+We get 
+$$\hat{y}=Xw^*+H\epsilon$$
+
+\subsection{B. Prove that  $\hat{y} - y = (MATRIX)\epsilon$ and find MATRIX}
+$$\hat{y} - y = Xw^*+H\epsilon -(Xw^*+\epsilon)$$
+$$\hat{y} - y = (H\epsilon - \epsilon)$$
+$$\hat{y} - y = (H-I)\epsilon$$
+
+\subsection{C. Express $E_{in}$}
+$$E_{in} = \frac{1}{N}||Xw_{lin}-y||^2$$
+Now $\hat{y} = Xw_{lin}$ , we also switched the position of $Xw_{lin}$ and $y$ to match the answer
+$$E_{in} = \frac{1}{N}||y-\hat{y}||^2$$ ........ equation 1\\
+from part B we have $$\hat{y} - y = (I-H)\epsilon$$
+we get 
+$$||\hat{y} - y||^2 = ||(I-H)\epsilon||^2$$
+or
+$$||y-\hat{y}||^2 = ||(I-H)\epsilon||^2$$
+putting this in equation 1 we get 
+$$E_{in} = \frac{1}{N}||(I-H)\epsilon||^2$$
+Now $||A||^2 = A^TA$
+Thus we get 
+
+$$E_{in} = \frac{1}{N}((I-H)\epsilon)^T((I-H)\epsilon)$$
+$$E_{in} = \frac{1}{N}\epsilon^T(I-H)^T(I-H)\epsilon$$
+$$E_{in} = \frac{1}{N}\epsilon^T(H^T-I^T)(I-H)\epsilon$$
+Now we have proved in Q1 A. that H is symmetrical i.e. $H^T=H$ and we also know that $I^T=I$\\
+Thus we get
+$$E_{in} = \frac{1}{N}\epsilon^T(I-H)(I-H)\epsilon$$
+$$E_{in} = \frac{1}{N}\epsilon^T(I-H)^2\epsilon$$
+We have proved that $(I-H)^k = I-H$ for any $k>0$, Therefore we get 
+$$E_{in} = \frac{1}{N}\epsilon^T(I-H)\epsilon$$
+
+\subsection{D. Proving $\E[E_{in}(\textbf{w}_{in})] = \sigma^2(1-\frac{d+1}{N})$ using C part}
+We have 
+$$E_{in} = \frac{1}{N}\epsilon^T(I-H)\epsilon$$
+To prove 
+$$E[E_{in}(\textbf{w}_{in})] = \sigma^2(1-\frac{d+1}{N})$$
+Proof:
+$$\E_{D}[E_{in}] = \E_D[\frac{1}{N}\epsilon^T(I-H)\epsilon]$$
+$$\E_{D}[E_{in}] = \frac{1}{N}\E_D[\epsilon^TI\epsilon-\epsilon^TH\epsilon]$$
+Using property of expectation
+$$\E_{D}[E_{in}] = \frac{1}{N}(\E_D[\epsilon^TI\epsilon]-\E_D[\epsilon^TH\epsilon])$$
+$$\E_{D}[E_{in}] = \frac{1}{N}(\E_D[\epsilon^T\epsilon]-\E_D[\epsilon^TH\epsilon])$$
+We will do the matrix multiplication using summation now
+We will write $\epsilon^T\epsilon =\sum_{i = 1}^{i = N}\epsilon_i\epsilon_i$ because it is the product of The transpose of a column vector and that column vector.\\
+We will write $\epsilon^TH\epsilon = \sum_{i = 1}^{N}\sum_{j=1}^{N}\epsilon_ih_{ij}\epsilon_j$ since it is the product of 3 matrices , first is a row matrix $\epsilon^T$ , the second one is a square matrix $H$ the third is a column matrix $\epsilon$\\
+We get
+$$\E_{D}[E_{in}] = \frac{1}{N}(\E_D[\sum_{i = 1}^{i = N}\epsilon_i\epsilon_i]-\E_D[ \sum_{i = 1}^{N}\sum_{j=1}^{N}\epsilon_ih_{ij}\epsilon_j])$$
+$$\E_{D}[E_{in}] = \frac{1}{N}(\E_D[\sum_{i = 1}^{i = N}\epsilon_i^2]-\E_D[ \sum_{i = 1}^{N}\sum_{j=1}^{N}\epsilon_ih_{ij}\epsilon_j])$$
+Now $\E_D[\sum_{i = 1}^{i = N}\epsilon_i^2]= \E_D[\epsilon_1^2+\epsilon_2^2+\epsilon_3^2+...+\epsilon_n^2] = \E_D[\epsilon_1^2]+\E_D[\epsilon_2^2]+\E_D[\epsilon_3^2]+...+\E_D[\epsilon_n^2]=\sigma^2+\sigma^2+...N times ...+ \sigma^2=N\sigma^2$ 
+
+$$\E_{D}[E_{in}] = \frac{1}{N}(N\sigma^2-\E_D[ \sum_{i = 1}^{N}\sum_{j=1}^{N}\epsilon_ih_{ij}\epsilon_j])$$
+$$\E_{D}[E_{in}] = \frac{1}{N}(N\sigma^2-\sum_{i = 1}^{N}\sum_{j=1}^{N}\E_D[ \epsilon_ih_{ij}\epsilon_j])$$
+
+Now $\epsilon_i$ and $\epsilon_j$ where $i \neq j$ are independent of each other, therefore we have $E[\epsilon_i\epsilon_j] = E[\epsilon_i]E[\epsilon_j]$. Now we know that mean of $\epsilon$ is 0. Therefore $E[\epsilon_i] = E[\epsilon_j] = 0$. Now we have kept the terms having the product of $\epsilon_i$ and $\epsilon_j=0$ 
+
+$$\E_{D}[E_{in}] = \frac{1}{N}(N\sigma^2- \sum_{i = 1}^{N}\E_D[\epsilon_i\epsilon_ih_{ii}])$$
+
+$$\E_{D}[E_{in}] = \frac{1}{N}(N\sigma^2-\sum_{i = 1}^{N}\E_D[ \epsilon_i^2h_{ii}])$$
+Now since H matrix is independent of the data-set therefore we can take it out of the expectation
+We get, 
+
+$$\E_{D}[E_{in}] = \frac{1}{N}(N\sigma^2-\sum_{i = 1}^{N}h_{ii}\E_D[ \epsilon_i^2])$$
+
+$$\E_{D}[E_{in}] = \frac{1}{N}(N\sigma^2-\sum_{i = 1}^{N}h_{ii}\sigma^2)$$
+$$\E_{D}[E_{in}] = \frac{1}{N}(N\sigma^2-\sigma^2\sum_{i = 1}^{N}h_{ii})$$
+Now we know that $\sum_{i = 1}^{N}h_{ii}=trace(H)$, Therefore
+$$\E_{D}[E_{in}] = \frac{1}{N}(N\sigma^2-\sigma^2trace(H))$$
+We know that $trace(H) = d+1$ from Question 1. D
+Therefore we get,
+$$\E_{D}[E_{in}] = \frac{1}{N}N\sigma^2-\sigma^2(d+1))$$
+Taking $\frac{1}{N} $ inside we get
+
+$$\E_{D}[E_{in}] = \frac{(N\sigma^2-\sigma^2(d+1)}{N}$$
+$$\E_{D}[E_{in}] = \sigma^2-\frac{\sigma^2(d+1)}{N}$$
+$$\E_{D}[E_{in}] = \sigma^2(1-\frac{d+1}{N})$$
+
+\subsection{E. To show $\E_{D,\epsilon'}[E_{test}(w_{lin})]=\sigma^2(1+\frac{d+1}{N})$}
+We know that $E_{test}$ is generated from the test data-set. We will have similar X and $w^*$ for $E_{in}$ and $E_{test}$ therefore, let us define $y' = Xw^*+\epsilon'$ (we are given the noise for $E_{test} $ as $\epsilon'$\\
+Now the value of $E_{test}$ will be the difference of $\hat{y}$ and $y'$\\
+We get 
+$$\E_{test}= \frac{1}{N}||y'-\hat{y}||^2 $$
+Replacing the value of $\hat{y}$ from Part A and the value mentioned here for $y'$
+We get 
+$$E_{test} = \frac{1}{N}||(Xw^*+\epsilon')-(Xw^* + H\epsilon )||^2$$
+$$E_{test} =  \frac{1}{N}||\epsilon'-H\epsilon||^2$$
+Now,
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\E_{D,\epsilon'}[ \frac{1}{N}||\epsilon'-H\epsilon||^2]$$
+Now, we know that $||A|| = A^TA$, therefore we get , 
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\E_{D,\epsilon'}[ \frac{1}{N}(\epsilon'-H\epsilon)^T(\epsilon'-H\epsilon)]$$
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\E_{D,\epsilon'}[ \frac{1}{N}(\epsilon'^T-\epsilon^TH^T)(\epsilon'-H\epsilon)]$$
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\E_{D,\epsilon'}[ \frac{1}{N}(\epsilon'^T\epsilon'-\epsilon^TH^T\epsilon'-\epsilon'^TH\epsilon + \epsilon^TH^TH\epsilon )]$$
+Now we know that $H^T = H$, Therefore
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\E_{D,\epsilon'}[ \frac{1}{N}(\epsilon'^T\epsilon'-\epsilon^TH\epsilon'-\epsilon'^TH\epsilon + \epsilon^THH\epsilon )]$$
+We know that $HH=H^2=H$
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\E_{D,\epsilon'}[ \frac{1}{N}(\epsilon'^T\epsilon'-\epsilon^TH\epsilon'-\epsilon'^TH\epsilon + \epsilon^TH\epsilon ])$$
+
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\frac{1}{N}(\E_{D,\epsilon'}[ \epsilon'^T\epsilon']-\E_{D,\epsilon'}[ \epsilon^TH\epsilon']-\E_{D,\epsilon'}[ \epsilon'^TH\epsilon] + \E_{D,\epsilon'}[ \epsilon^TH\epsilon ])$$
+
+Now, we know that $\epsilon'$ and $\epsilon$ are independent, therefore, using same concept as in previous part we can make all the terms having the term $\E_{D,\epsilon'}[\epsilon_ih_{ij}\epsilon'_j]= 0$  and $\E_{D,\epsilon'}[\epsilon'_ih_{ij}\epsilon_j]= 0$ when we do the multiplication. We get ,
+
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\frac{1}{N}(\E_{D,\epsilon'}[ \epsilon'^T\epsilon']+\E_{D,\epsilon'}[ \epsilon^TH\epsilon ])$$
+Now we will do matrix multiplication of $\epsilon'^T$ with $\epsilon'$\\
+$\epsilon'^T\epsilon'=\sum_{i=1}^{N}\epsilon'_i\epsilon'_i = \sum_{i=1}^{N}\epsilon'_{i}^2$\\
+and, matrix multiplication of $\epsilon^T$ with $\epsilon$\\
+$\epsilon^TH\epsilon=\sum_{i=1}^{N}\sum_{j=1}^{N}\epsilon_ih_{ij}\epsilon_j$\\
+
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\frac{1}{N}(\E_{D,\epsilon'}[ \sum_{i=1}^{N}\epsilon'_{i}^2]+\E_{D,\epsilon'}[ \sum_{i=1}^{N}h_{ii}\epsilon_i^2 ])$$
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\frac{1}{N}(\E_{D,\epsilon'}[ \sum_{i=1}^{N}\epsilon'_{i}^2]+\E_{D,\epsilon'}[ \sum_{i=1}^{N}\sum_{j=1}^{N}\epsilon_ih_{ij}\epsilon_j ])$$
+Taking the summation outside the expectation we have 
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\frac{1}{N}(\sum_{i=1}^{N}\E_{D,\epsilon'}[ \epsilon'_{i}^2]+\sum_{i=1}^{N}\sum_{j=1}^{N}\E_{D,\epsilon'}[ \epsilon_ih_{ij}\epsilon_j ])$$
+Since $\E_{D,\epsilon'}$ is independent of $h_{ij}$ therefore, 
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\frac{1}{N}(\sum_{i=1}^{N}\E_{D,\epsilon'}[ \epsilon'_{i}^2]+\sum_{i=1}^{N}\sum_{j=1}^{N}h_{ij}\E_{D,\epsilon'}[ \epsilon_i\epsilon_j ])$$
+Now, $\E_{D,\epsilon'}[ \epsilon'_{i}^2]=\sigma^2$ and using the same concept as in previous part, i.e. $\epsilon_i $ and $\epsilon_j$ where $i\neq j $, are independent , therefore, $\E_{D,\epsilon'}[\epsilon_i\epsilon_j] = \E_{D,\epsilon'}[\epsilon_i]\E_{D,\epsilon'}[\epsilon_j] =0$ where $i\neq j $
+Therefore we have 
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\frac{1}{N}(\sum_{i=1}^{N}\sigma^2+\sum_{i=1}^{N}h_{ii}\E_{D,\epsilon'}[ \epsilon_i\epsilon_i ])$$
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\frac{1}{N}(\sum_{i=1}^{N}\sigma^2+\sum_{i=1}^{N}h_{ii}\E_{D,\epsilon'}[ \epsilon_i^2])$$
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\frac{1}{N}(\sum_{i=1}^{N}\sigma^2+\sum_{i=1}^{N}h_{ii}\E_{D,\epsilon'}[ \epsilon_i^2])$$
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\frac{1}{N}(\sum_{i=1}^{N}\sigma^2+\sum_{i=1}^{N}h_{ii}\sigma^2)$$
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\frac{1}{N}\sigma^2(N+\sum_{i=1}^{N}h_{ii})$$
+Now $\sum_{i=1}^{N}h_{ii}^2 = trace(H)  = d+1$ therefore,
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\frac{1}{N}\sigma^2(N+(d+1)$$
+Taking $\frac{1}{N}$ inside we get
+
+$$\E_{D,\epsilon'}[E_{test}(w_{lin})]=\sigma^2(1+\frac{d+1}{N})$$
+Hence proved
+
+\section{Question 3.  To prove $E_{out}(w_{lin})=\sigma^2(1+\frac{d+1}{N}+o(\frac{1}{N}))$}
+\subsection{A. For a test point x, show that the error $y - g(x_n) = \epsilon - x_n^T(X^TX)^{-1}X^T\epsilon$ }
+We used $g(x_n)$ because we need to find for a particular test point \\
+We know that $g(x_n)=x_n^Tw_{lin}$\\
+Now, $w_{lin}=(X^TX)^{-1}X^Ty$\\
+using this value we get
+$$g(x_n)=x_n^T(X^TX)^{-1}X^Ty$$
+Now $y=(Xw^*+\epsilon)$ , thus we get 
+$$g(x_n)=x_n^T(X^TX)^{-1}X^T(Xw^*+\epsilon)$$
+$$g(x_n)=x_n^T(X^TX)^{-1}X^TXw^*+x_n^T(X^TX)^{-1}X^T\epsilon$$
+$$g(x_n)=x_n^Tw^*+x_n^T(X^TX)^{-1}X^T\epsilon$$
+
+
+Therefore, putting these values we get 
+$$y_n-g(x_n)=(x_n^Tw^* + \epsilon_n) - (x_n^Tw^*+x_n^T(X^TX)^{-1}X^T\epsilon)$$
+Thus we  get 
+$$y_n-g(x_n)=\epsilon_n - x_n^T(X^TX)^{-1}X^T\epsilon$$
+Hence proved 
+\subsection{B. To prove $E_{out}=\sigma^2+trace(\sum(X^TX)^{-1}X^T\epsilon\epsilon^TX^T(X^TX)^{-1})$}
+Writing equation 2.17 of the book  as
+$$E_{out} = E[(y-g(x_n))^2]$$
+We have showed that 
+$$y_n-g(x_n)=\epsilon_n - x_n^T(X^TX)^{-1}X^T\epsilon$$
+Therefore
+$$E_{out} = E[(\epsilon_n - x_n^T(X^TX)^{-1}X^T\epsilon)^2]$$
+$$E_{out} = E[(\epsilon_n - x_n^T(X^TX)^{-1}X^T\epsilon)(\epsilon_n - x_n^T(X^TX)^{-1}X^T\epsilon)^T]$$
+$$E_{out} = E[(\epsilon_n - x_n^T(X^TX)^{-1}X^T\epsilon)(\epsilon_n - (x_n^T(X^TX)^{-1}X^T\epsilon)^T)]$$
+$$E_{out} = E[\epsilon_n^2 - \epsilon_n(\gxn)^T - \gxn\epsilon_n + (\gxn)(\gxn)^T]$$
+Since $\gxn $ is scalar, we can write $\epsilon_n(\gxn)^T$ = $\gxn\epsilon_n$ and we will add the 2nd and the third term
+
+
+$$E_{out} = E[\epsilon_n^2 - 2\epsilon_n\gxn  + (\gxn)(\gxn)^T]$$
+Taking $E$ inside we get ,
+$$E_{out} = E[\epsilon_n^2] - E[2\epsilon_n\gxn]  + E[(\gxn)(\gxn)^T]$$
+Now $E[\epsilon_n^2] = \sigma^2$ also $\epsilon_t$ is independent of $x_t$ Thus we get 
+$$E_{out} = \sigma^2 - 2E[\epsilon_n]E[\gxn]  + E[(\gxn)(\gxn)^T]$$
+since $ E[\epsilon_n] = 0 $ Therefore the 2nd term in the above expression is equal to 0, we get 
+$$E_{out} = \sigma^2 + E[(\gxn)(\gxn)^T]$$
+
+Now the term $(\gxn)(\gxn)^T$ is a scalar therefore we can put trace on this equation because trace(scalar) = scalar
+$$E_{out} = \sigma^2 + E[trace((\gxn)(\gxn)^T)]$$
+$$E_{out} = \sigma^2 + E[trace((\gxn)(\epsilon^TX(X^TX)^{-1} x_n))]$$
+Now we know that trace(ABC) = trace(BCA) = trace(CAB) Therefore
+
+$$E_{out} = \sigma^2 + E[trace(x_n\gxn\epsilon^TX(X^TX)^{-1} )]$$
+$$E_{out} = \sigma^2 + E[trace(x_n\gxn\epsilon^TX(X^TX)^{-1} )]$$
+Taking trace outside the expectation since it is a linear function 
+$$E_{out} = \sigma^2 + trace(E[x_n\gxn\epsilon^TX(X^TX)^{-1}])$$
+Now we know that $x_n$ is independent of $\epsilon$ Therefore, we can separate the terms, $x_n$ and $x_n^T$ in the above expression
+$$E_{out} = \sigma^2 + trace(E[x_nx_n^T]E[(X^TX)^{-1}X^T\epsilon\epsilon^TX(X^TX)^{-1}])$$
+We are given that $\sum = E_x[x_nx_n^T]$ , we put the value in the above equation, also the term $(X^TX)^{-1}X^T\epsilon\epsilon^TX(X^TX)^{-1}$ is a constant therefore we can remove the E 
+
+$$E_{out} = \sigma^2 + trace(\sum (X^TX)^{-1}X^T\epsilon\epsilon^TX(X^TX)^{-1})$$
+Hence proved 
+
+\subsection{C. Find $\E_{\epsilon}[\epsilon\epsilon^T]$}
+$\epsilon$ is a column vector of $N\times1$ dimension , $\epsilon^T $ will be a row vector of $1\times N$ dimension Therefore there product i.e. $\epsilon\epsilon^T$ will be of $N\times N$  dimension
+Now each entry of the matrix of the form $\epsilon_i\epsilon_j$ where $i\neq j $ will be 0 because $\epsilon_i$ will be independent of $\epsilon_j$ where $i \neq j$ 
+Hence it will just have terms of form $\epsilon_i^2$ in the diagonal and rest of the terms will be 0\\
+We can push the expectation inside the matrix such that we find the expectation of each element of the matrix. Only the diagonal elements will have a non zero expectation = $\sigma^2$ because ($=E[\epsilon_i^2]$) and rest of the elements will be 0 .
+Therefore the resultant matrix will be of form $\sigma^2I_N$ where $I_N$ is an identity matrix of $N\times N $ size 
+
+$$\E_{\epsilon}[\epsilon\epsilon^T] = \sigma^2I_N$$
+\subsection{D. $E_{out}= \sigma^2 + \frac{\sigma^2}{N}trace(\sum(\frac{1}{N}X^TX)^{-1})$}
+From B we have 
+$$E_{out} = \sigma^2 + trace(\sum (X^TX)^{-1}X^T\epsilon\epsilon^TX(X^TX)^{-1})$$ 
+Now we will take expectation over $\epsilon$ ,
+$$E_{out} = E_{\epsilon}[\sigma^2 + trace(\sum (X^TX)^{-1}X^T\epsilon\epsilon^TX(X^TX)^{-1})]$$ 
+$$E_{out} = E_{\epsilon}[\sigma^2] + E_{\epsilon}[trace(\sum (X^TX)^{-1}X^T\epsilon\epsilon^TX(X^TX)^{-1})]$$ 
+$$E_{out} = \sigma^2 + E_{\epsilon}[trace(\sum (X^TX)^{-1}X^T\epsilon\epsilon^TX(X^TX)^{-1})]$$ 
+$\sum (X^TX)^{-1}X^T$ and $X(X^TX)^{-1})$ are constant quantities therefore we can push expectation inside 
+$$E_{out} = \sigma^2 + trace(E[\sum (X^TX)^{-1}X^T]E[\epsilon\epsilon^T]E[X(X^TX)^{-1})]$$ 
+since $\sum (X^TX)^{-1}X^T$ and $X(X^TX)^{-1})$ are constant quantities,
+$$E_{out} = \sigma^2 + trace(\sum (X^TX)^{-1}X^TE[\epsilon\epsilon^T]X(X^TX)^{-1})$$ 
+From C part
+$$E_{out} = \sigma^2 + trace(\sum (X^TX)^{-1}X^T \sigma^2I_NX(X^TX)^{-1})$$ 
+$$E_{out} = \sigma^2 + \sigma^2trace(\sum (X^TX)^{-1}X^TX(X^TX)^{-1})$$ 
+$$E_{out} = \sigma^2 + \sigma^2trace(\sum (X^TX)^{-1})$$ 
+Now to match the answer we will divide by N outside  and divide by $N^{-1}$ inside 
+$$E_{out} = \sigma^2 + \frac{\sigma^2}{N}trace(\sum (\frac{1}{N}X^TX)^{-1})$$ 
+We are given that $\frac{1}{N}X^TX = \sum$
+Putting its value,
+$$E_{out} = \sigma^2 + \frac{\sigma^2}{N}trace(\sum (\sum) ^{-1})$$ 
+$$E_{out} = \sigma^2 + \frac{\sigma^2}{N}trace(I_{d+1})$$ 
+$$E_{out} = \sigma^2 + \frac{\sigma^2}{N}(d+1)$$ 
+$$E_{out} = \sigma^2(1 + \frac{d+1}{N})$$ 
+
+\subsection{E. $E_{out} = \sigma^2(1 + \frac{d+1}{N} +o(\frac{1}{N}))$ }
+According to law of large numbers 
+$\frac{1}{N}X^T X$ converges in probability to $\sum$ and $(\frac{1}{N}X^T X)^{-1}$ converges to $(\sum)^{-1}$ 
+Now the multiplication of $\frac{1}{N}X^T X$  and $(\frac{1}{N}X^T X)^{-1}$  will converge to $\sum(\sum)^{-1}$
+
+Thus we can write  $\frac{1}{N}X^T X \times (\frac{1}{N}X^T X)^{-1} = \sum(\sum)^{-1} + o(1) = I + o(1)$ 
+Therefore we get ,
+$$E_{out} = \sigma^2 + \frac{\sigma^2}{N}trace(\sum (\frac{1}{N}X^TX)^{-1})$$ 
+$$E_{out} = \sigma^2 + \frac{\sigma^2}{N}trace(I+o(1))$$ 
+$$E_{out} = \sigma^2 + \frac{\sigma^2}{N}(trace(I)+o(1)))$$ 
+$$E_{out} = \sigma^2 + \frac{\sigma^2}{N}((d+1)+o(1)))$$ 
+$$E_{out} = \sigma^2(1 + \frac{d+1}{N}+\frac{o(1)}{N})$$ 
+
+
+
+
+
+ \end{document}

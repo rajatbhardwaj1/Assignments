@@ -1,0 +1,23 @@
+## -*- Mode: python; py-indent-offset: 4; indent-tabs-mode: nil; coding: utf-8; -*-
+
+def build(bld):
+        
+   
+    obj = bld.create_ns3_program('task1', ['core', 'point-to-point', 'internet', 'applications', 'netanim'])
+    obj.source = 'task1.cc'
+
+    bld.register_ns3_script('task1.py', ['internet', 'point-to-point', 'applications' , 'netanim'])
+
+
+    
+    obj = bld.create_ns3_program('task2', ['core', 'point-to-point', 'internet', 'applications', 'netanim'])
+    obj.source = 'task2.cc'
+
+    bld.register_ns3_script('task2.py', ['internet', 'point-to-point', 'applications', 'netanim'])
+
+
+    
+    obj = bld.create_ns3_program('task3', ['core', 'point-to-point', 'internet', 'applications', 'netanim'])
+    obj.source = 'task3.cc'
+
+    bld.register_ns3_script('task3.py', ['internet', 'point-to-point', 'applications', 'netanim'])

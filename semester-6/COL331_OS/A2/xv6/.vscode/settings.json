@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "param.h": "c",
+        "mmu.h": "c",
+        "proc.h": "c"
+    }
+}

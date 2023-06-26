@@ -1,0 +1,14 @@
+---
+:id: 132702825
+:submitters:
+- :name: Geetansh Juneja
+  :email: cs5200649@iitd.ac.in
+- :name: Rajat Bhardwaj
+  :email: cs5200436@iitd.ac.in
+:created_at: !ruby/object:ActiveSupport::TimeWithZone
+  utc: 2022-09-09 09:11:05.143140000 Z
+  zone: !ruby/object:ActiveSupport::TimeZone
+    name: America/Los_Angeles
+  time: 2022-09-09 02:11:05.143140000 Z
+:status: processed
+:score: 48.0
